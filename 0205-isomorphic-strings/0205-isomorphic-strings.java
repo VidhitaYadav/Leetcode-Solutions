@@ -1,13 +1,20 @@
 import java.util.*;
 class Solution {
     public boolean isIsomorphic(String s, String t) {
-        int[] m1 = new int[256], m2 = new int[256];
-          int n = s.length();
-          for (int i = 0; i < n; ++i) {
-              if (m1[s.charAt(i)] != m2[t.charAt(i)]) return false;
-              m1[s.charAt(i)] = i + 1;
-              m2[t.charAt(i)] = i + 1;
-          }
-          return true;
+        HashMap<Character, Character> hm=new HashMap<>();
+        HashSet<Character>set=new HashSet<>();
+        for(int i=0;i<s.length();i++){
+            char c1=s.charAt(i);
+            char c2=t.charAt(i);
+            if(hm.containsKey(c1)){
+                if(hm.get(c1)!=c2) return false;
+            }else{
+                if(set.contains(c2)) return false;
+            }
+            hm.put(c1,c2);
+            set.add(c2);
+        }
+        
+        return true;
     }
 }
