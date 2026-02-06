@@ -1,16 +1,17 @@
 import java.util.*;
 class Solution {
     public int minRemoval(int[] nums, int k) {
-        int n=nums.length;
+        if(nums.length<2) return 0;
         Arrays.sort(nums);
-        int low=0;
-        int result=0;
-        for(int high=0;high<n;high++){
-            while(nums[high]>(long)k*nums[low]){
-                low++;
+        int n = nums.length;
+        int j = 0;
+        int mx = 0;
+        for(int i=0; i<n; i++){
+            while(j<i && (long)nums[i]>(long)(k)*nums[j]){
+                j++;
             }
-            result=Math.max(result,high-low+1);
+            mx = Math.max(mx,i-j+1);
         }
-        return n-result;
+        return n-mx;
     }
 }
