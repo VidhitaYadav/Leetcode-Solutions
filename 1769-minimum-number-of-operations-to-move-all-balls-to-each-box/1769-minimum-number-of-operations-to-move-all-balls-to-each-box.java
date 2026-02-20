@@ -2,14 +2,17 @@ class Solution {
     public int[] minOperations(String boxes) {
         int n=boxes.length();
         int [] answer=new int[n];
+        int balls=0,sum=0;
         for(int i=0;i<n;i++){
-            int sum=0;
-            for(int j=0;j<n;j++){
-                if(boxes.charAt(j)=='1'){
-                    sum+=Math.abs(i-j);
-                }    
-            }
-            answer[i]=sum; 
+            answer[i]+=sum;
+            if(boxes.charAt(i)=='1')balls++;
+            sum+=balls; 
+        }
+        balls=0;sum=0;
+        for(int i=n-1;i>=0;i--){
+            answer[i]+=sum;
+            if(boxes.charAt(i)=='1')balls++;
+            sum+=balls;
         }
         return answer;
     }
