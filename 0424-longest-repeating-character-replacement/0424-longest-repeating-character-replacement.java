@@ -1,22 +1,20 @@
 import java.util.*;
 class Solution {
     public int characterReplacement(String s, int k) {
-       int maxLen=0;
-       int maxFreq=0;
-       int n=s.length();
-       int l=0;
-       HashMap<Character,Integer>hm=new HashMap<>();
-       for(int r=0;r<n;r++){
-        char ch=s.charAt(r);
-        hm.put(ch,hm.getOrDefault(ch,0)+1);
-        maxFreq=Math.max(maxFreq,hm.get(ch));
-        while((r-l+1)-maxFreq>k){
-            char chl=s.charAt(l);
-            hm.put(chl,hm.get(chl)-1);
-            l++;
+        int l=0,maxLen=0,maxFreq=0;
+        int n=s.length();
+        int[] arr=new int[26];
+        for(int r=0;r<n;r++){
+            char ch=s.charAt(r);
+            arr[ch-'A']++;
+            maxFreq = Math.max(maxFreq,arr[ch-'A']);
+            while((r-l+1)-maxFreq>k){
+                char chl=s.charAt(l);
+                arr[chl-'A']--;
+                l++;
+            }
+            maxLen=Math.max(maxLen,r-l+1);
         }
-        maxLen=Math.max(maxLen,r-l+1);
-       }
-       return maxLen;
+        return maxLen;
     }
 }
